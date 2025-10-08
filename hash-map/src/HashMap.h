@@ -6,32 +6,31 @@
 
 /**
  * @file HashMap.h
- * @brief Реализация собственной хеш-таблицы.
+ * @brief Implementation of a custom hash map.
  *
- * Структура данных на основе массива бакетов и цепочек (separate chaining).
- * В среднем доступ к элементам выполняется за O(1), но при коллизиях операции
- * могут деградировать до O(n) в рамках одного бакета.
+ * Data structure based on an array of buckets and separate chaining (linked
+ * list). Average access time is O(1), but in case of collisions operations may
+ * degrade to O(n) within a single bucket.
  *
- * Для вычисления индекса используется побитовое И:
+ * Index is calculated using bitwise AND:
  *     index = hash & (capacity - 1)
  *
- * Такая схема корректна только при условии, что capacity является степенью двойки.
+ * This scheme works correctly only if capacity is a power of two.
  */
-
 
 template<typename K, typename V>
 struct Node
 {
-    /// Ключ элемента
+    /// Key of the element
     const K key;
 
-    /// Значение элемента
+    /// Value of the element
     V value;
 
-    /// Хеш элемента, хранится для оптимизации, чтобы каждый раз не считать его
+    /// Hash of the element, stored to avoid recalculating
     const size_t hash;
 
-    /// Указатель не следующий элемент
+    /// Pointer to the next element in the chain
     Node *next;
 
     Node(const K &k, const V &v, const size_t h, Node *n = nullptr)
@@ -41,36 +40,35 @@ struct Node
 template <typename K, typename V>
 class HashMap
 {
-    /// Массив указателей га бакеты
+    /// Array of bucket pointers
     Node<K, V> **buckets = nullptr;
 
-    /// Текущее количество элементов
+    /// Current number of elements
     size_t sz = 0;
 
-    /// Размер массива бакетов
+    /// Current bucket array size
     size_t capacity = 16;
 
-    /// Коэффициент загрузки
+    /// Load factor
     float load_factor = 0.75f;
 
-    /// Порог для resize
+    /// Threshold for resize
     size_t threshold = static_cast<size_t>(capacity * load_factor);
 
-    /// Хеш-функция
+    /// Hash function
     std::hash<K> hasher;
 
     /**
-     * @brief Инициализирует хеш-таблицу.
+     * @brief Initializes the hash map.
      *
-     * Создает массив бакетов длиной @p cap и сбрасывает текущий размер (size)
-     * в 0.
-     * Рассчитывается новое значение threshold на основе load_factor и capacity.
+     * Creates a bucket array of length @p cap and resets the current size to 0.
+     * Recalculates threshold based on load_factor and capacity.
      *
-     * @param cap количество бакетов (по умолчанию 16).
-     *            Должно быть степенью двойки, иначе хеширование индекса
-     *            работать корректно не будет.
+     * @param cap number of buckets (default 16).
+     *            Must be a power of two, otherwise index hashing will not work
+     *            correctly.
      *
-     * @note Вызывается в конструкторе и при изменении размера таблицы (resize).
+     * @note Called in the constructor and when resizing the table.
      */
     void init(const size_t cap = 16)
     {
@@ -85,13 +83,13 @@ class HashMap
     }
 
     /**
-     * @brief Увеличение размера массива бакетов вдвое.
+     * @brief Doubles the bucket array size.
      *
-     * Создает новый массив бакетов вдвое большего размера, выполняет
-     * init(cap * 2) и распределяет все элементы из старого массива в новый.
+     * Creates a new bucket array of twice the size, calls init(cap * 2) and
+     * redistributes all elements from the old array into the new one.
      *
-     * @note Средняя сложность O(n), где n - количество элементов.
-     *       Вызывается автоматически при превышении threshold в методе put().
+     * @note Average complexity is O(n), where n is the number of elements.
+     *       Called automatically when threshold is exceeded in put().
      */
     void resize()
     {
@@ -141,7 +139,7 @@ public:
     }
 
     HashMap(const HashMap&) = delete;
-    HashMap& operator=(const HashMap&) = delete; // надо понять TODO
+    HashMap& operator=(const HashMap&) = delete; // TODO
 
     ~HashMap()
     {
@@ -150,13 +148,13 @@ public:
     }
 
     /**
-     * @brief Возвращает значение по ключу.
+     * @brief Returns the value by key.
      *
-     * @param key ключ
-     * @return std::optional<V> - если найдено значение, иначе std::nullopt
+     * @param key key
+     * @return std::optional<V> — value if found, otherwise std::nullopt
      *
-     * @note Средняя сложность O(1), но при большом количестве коллизий может
-     * быть O(n) для одного бакета
+     * @note Average complexity is O(1), but with many collisions
+     *       can degrade to O(n) within one bucket.
      */
     [[nodiscard]] std::optional<V> get(const K &key) const
     {
@@ -175,16 +173,16 @@ public:
     }
 
     /**
-     * @brief Добавление или обновление пары "ключ-значение" в хеш-таблице.
+     * @brief Inserts or updates a key-value pair in the hash map.
      *
-     * Если ключ уже существует значение перезаписывается, в противном случае
-     * создается новый элемент
+     * If the key already exists, the value is updated,
+     * otherwise a new element is created.
      *
-     * @param key ключ
-     * @param value значение
+     * @param key the key of the element to insert or update
+     * @param value the value to associate with the key
      *
-     * @note Средняя сложность O(1). Может вызвать resize() при превышении
-     * threshold
+     * @note Average complexity is O(1). May call resize() when threshold
+     *       is exceeded.
      */
     void put(const K &key, const V &value)
     {
@@ -208,14 +206,14 @@ public:
     }
 
     /**
-     * @brief Удаление элемента по ключу.
+     * @brief Removes an element by key.
      *
-     * @param key ключ
-     * @return true - элемент был найден и успешно удалён;
-     *         false - элемент с таким ключом отсутствует
+     * @param key the key of the element to remove
+     * @return true if the element was found and removed;
+     *         false if no element with such key exists
      *
-     * @note Средняя сложность O(1), но при большом количестве коллизий может
-     *       быть O(n) для одного бакета
+     * @note Average complexity is O(1), but with many collisions
+     *       can degrade to O(n) within one bucket.
      */
     bool remove(const K &key)
     {
@@ -239,15 +237,13 @@ public:
     }
 
     /**
-     * @brief Очистка хеш-таблицы.
+     * @brief Clears the hash map.
      *
-     * Удаляет все элементы, но оставляет текущее значение capacity и threshold.
-     * После вызова таблица будет пустой, однако выделенная память под бакеты
-     * останется прежнего размера.
+     * Removes all elements but keeps current capacity and threshold.
+     * After the call, the map is empty but allocated memory remains.
      *
-     * @note Средняя сложность O(n), где n - количество элементов
-     * @warning После вызова все указатели на элементы становятся
-     *          недействительными.
+     * @note Complexity is O(n), where n is the number of elements.
+     * @warning All existing pointers to elements become invalid.
      */
     void clear()
     {
@@ -267,18 +263,16 @@ public:
     }
 
     /**
-     * @brief Полный сброс хеш-таблицы.
+     * @brief Resets the hash map completely.
      *
-     * Удаляет все элементы и освобождает массив бакетов, после чего
-     * инициализирует таблицу заново со стандартными значениями.
-     * Эквивалентно вызову конструктора по умолчанию.
+     * Removes all elements and frees the bucket array,
+     * then reinitializes the map with default parameters.
+     * Equivalent to the default constructor state.
      *
-     * @note Используется, если нужно освободить память и вернуть таблицу в
-     *       исходное состояние.
-     * @warning После вызова все указатели на элементы становятся
-     *          недействительными.
+     * @note Useful when you need to free memory and restore initial state.
+     * @warning All existing pointers to elements become invalid.
      */
-    void reset() // очистка и полный сброс к начальным значениям
+    void reset()
     {
         if (!buckets)
         {
@@ -302,12 +296,14 @@ public:
         init();
     }
 
-    [[nodiscard]] size_t size() const // размер
+    /// Returns number of elements
+    [[nodiscard]] size_t size() const
     {
         return sz;
     }
 
-    [[nodiscard]] bool empty() const // пустота
+    /// Checks whether the map is empty
+    [[nodiscard]] bool empty() const
     {
         return sz == 0;
     }

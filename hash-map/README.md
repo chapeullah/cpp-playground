@@ -1,4 +1,4 @@
-# HashMap (C++)
+# Hash map
 
 A custom implementation of a hash map.  
 The data structure is based on an array of buckets and **separate chaining** (linked lists).  

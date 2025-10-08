@@ -1,5 +1,5 @@
 # cpp-playground
-This README.md presents a collection of my C++ projects.
+A collection of my C++ projects.
 
 # This repo:
 - [Hash map](https://github.com/chapeullah/cpp-playground/tree/main/hash-map)

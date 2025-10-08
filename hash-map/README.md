@@ -4,8 +4,6 @@ A custom implementation of a hash map.
 The data structure is based on an array of buckets and **separate chaining** (linked lists).  
 Provides average-case **O(1)** access, insertion, and deletion, with possible **O(n)** degradation in case of collisions.
 
----
-
 ## Features
 - Generic key–value storage (`template <typename K, typename V>`).  
 - Separate chaining with linked lists for collision handling.  
@@ -15,8 +13,6 @@ Provides average-case **O(1)** access, insertion, and deletion, with possible **
 - Optional return type via `std::optional<V>` for safe lookups.
 - Bitwise index calculation (`index = hash & (capacity - 1)`), requiring capacity to be a power of two.  
 
----
-
 ## Complexity
 | Operation | Average case | Worst case (collisions) |
 |-----------|--------------|--------------------------|
@@ -24,8 +20,6 @@ Provides average-case **O(1)** access, insertion, and deletion, with possible **
 | `put`     | O(1)         | O(n) |
 | `remove`  | O(1)         | O(n) |
 | `resize`  | O(n)         | O(n) |
-
----
 
 ## Public API
 

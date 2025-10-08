@@ -47,3 +47,16 @@ bool empty() const;
 - reset() → Fully resets the hash map to default state (capacity 16, size 0).
 - size() → Returns the number of elements in the map.
 - empty() → Returns true if the map contains no elements.
+
+## Tests
+
+Unit tests are implemented using **GoogleTest (gtest)**.  
+They cover core functionality of the hash map, including insertion, lookup, update, deletion, clearing, and resizing.
+
+### How to run
+```bash
+mkdir build && cd build
+cmake ..
+make
+./test_hashmap
+```

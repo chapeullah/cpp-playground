@@ -36,3 +36,14 @@ void reset();
 
 size_t size() const;
 bool empty() const;
+```
+
+## Method descriptions
+
+- get(const K& key) - Returns the value by key, or std::nullopt if not found.
+- put(const K& key, const V& value) → Inserts or updates a key–value pair. Resizes if threshold exceeded.
+- remove(const K& key) → Removes an element by key, returns true if successful.
+- clear() → Removes all elements, capacity is preserved.
+- reset() → Fully resets the hash map to default state (capacity 16, size 0).
+- size() → Returns the number of elements in the map.
+- empty() → Returns true if the map contains no elements.

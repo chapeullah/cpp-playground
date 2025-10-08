@@ -24,15 +24,15 @@ Provides average-case **O(1)** access, insertion, and deletion, with possible **
 ## Public API
 
 ```cpp
-HashMap();                  // default constructor
-~HashMap();                 // destructor
+HashMap();
+~HashMap();
 
 std::optional<V> get(const K& key) const;
 void put(const K& key, const V& value);
 bool remove(const K& key);
 
-void clear();               // remove all elements, keep capacity
-void reset();               // reset to default state
+void clear();
+void reset();
 
 size_t size() const;
 bool empty() const;

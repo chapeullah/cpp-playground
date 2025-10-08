@@ -20,6 +20,7 @@ Provides average-case **O(1)** access, insertion, and deletion, with possible **
 | `put`     | O(1)    | O(n) |
 | `remove`  | O(1)    | O(n) |
 | `resize`  | O(n)    | O(n) |
+| `clear/reset`  | O(n)    | O(n) |
 
 ## Public API
 

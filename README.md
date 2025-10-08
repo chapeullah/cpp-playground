@@ -6,4 +6,4 @@ This README.md presents a collection of my C++ projects.
 
 # Other projects
 - [A classic Snake game](https://github.com/chapeullah/SnakeGame)
-- [Event management application](https://github.com/chapeullah/EventGift)
+- [Event management](https://github.com/chapeullah/EventGift)

@@ -14,12 +14,12 @@ Provides average-case **O(1)** access, insertion, and deletion, with possible **
 - Bitwise index calculation (`index = hash & (capacity - 1)`), requiring capacity to be a power of two.  
 
 ## Complexity
-| Operation | Average case | Collisions |
-|-----------|--------------|--------------------------|
-| `get`     | O(1)         | O(n) |
-| `put`     | O(1)         | O(n) |
-| `remove`  | O(1)         | O(n) |
-| `resize`  | O(n)         | O(n) |
+| Operation | Average | Collisions |
+|-----------|---------|------------|
+| `get`     | O(1)    | O(n) |
+| `put`     | O(1)    | O(n) |
+| `remove`  | O(1)    | O(n) |
+| `resize`  | O(n)    | O(n) |
 
 ## Public API
 

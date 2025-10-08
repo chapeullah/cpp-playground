@@ -1,6 +1,6 @@
 # HashMap (C++)
 
-A custom implementation of a hash map (associative array) in C++17.  
+A custom implementation of a hash map.  
 The data structure is based on an array of buckets and **separate chaining** (linked lists).  
 Provides average-case **O(1)** access, insertion, and deletion, with possible **O(n)** degradation in case of collisions.
 
@@ -12,7 +12,7 @@ Provides average-case **O(1)** access, insertion, and deletion, with possible **
 - Custom memory management (manual allocation, destruction, resizing).  
 - Dynamic resizing when load factor threshold is exceeded.  
 - Supports insertion, lookup, deletion, clearing, and reset.  
-- Optional return type via `std::optional<V>` for safe lookups.  
+- Optional return type via `std::optional<V>` for safe lookups.
 - Bitwise index calculation (`index = hash & (capacity - 1)`), requiring capacity to be a power of two.  
 
 ---

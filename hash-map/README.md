@@ -16,11 +16,11 @@ Provides average-case **O(1)** access, insertion, and deletion, with possible **
 ## Complexity
 | Operation | Average | Collisions |
 |-----------|:---------:|:------------:|
-| `get`     | O(**1**)    | O(**n**) |
-| `put`     | O(**1**)    | O(**n**) |
-| `remove`  | O(**1**)    | O(**n**) |
-| `resize`  | O(**n**)    | O(**n**) |
-| `clear/reset`  | O(**n**)    | O(**n**) |
+| `get`     | O(1)    | O(n) |
+| `put`     | O(1)     | O(n) |
+| `remove`  | O(1)     | O(n) |
+| `resize`  | O(1)     | O(n) |
+| `clear/reset`  | O(n)    | O(n) |
 
 ## Public API
 

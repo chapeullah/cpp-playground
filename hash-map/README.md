@@ -51,12 +51,7 @@ bool empty() const;
 ## Tests
 
 Unit tests are implemented using **GoogleTest (gtest)**.  
-They cover core functionality of the hash map, including insertion, lookup, update, deletion, clearing, and resizing.
+They verify insertion, lookup, update, deletion, clearing, and resizing logic.  
 
-### How to run
-```bash
-mkdir build && cd build
-cmake ..
-make
-./test_hashmap
-```
+To run the tests, simply build the project with **CMake** and execute the `test_hashmap` binary produced by the build system.
+
